@@ -1,0 +1,47 @@
+# baseURI: http://iso15926.fiatech.org/test/constraints/shacl_job_number
+# imports: http://data.posccaesar.org/tpl/
+# imports: http://rdl.rdlfacade.org/data
+# imports: http://www.w3.org/ns/shacl
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shacl_job_number: <http://iso15926.fiatech.org/test/constraints/shacl_job_number#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://iso15926.fiatech.org/test/constraints/shacl_job_number>
+  rdf:type owl:Ontology ;
+  rdf:type sh:Graph ;
+  owl:imports <http://data.posccaesar.org/tpl/> ;
+  owl:imports <http://rdl.rdlfacade.org/data> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+  sh:shapesGraph <http://www.w3.org/ns/shacl> ;
+.
+<http://rds.posccaesar.org/2008/02/OWL/ISO-15926-2_2003#Activity>
+  rdf:type sh:ShapeClass ;
+  sh:constraint [
+      rdfs:comment "Check full path Activity to Datasheet"^^xsd:string ;
+      sh:message "Activity representing Project (RDS9629)  with Project Identification Code (PROJECT_IDENTIFICATION_CODE) not on a Data Sheet (RDS250334)"^^xsd:string ;
+      sh:sparql """# Check full path Activity to Datasheet
+SELECT ?this
+ WHERE {
+    ?classificationofindividual tpl:hasClassified ?this .
+    ?classificationofindividual a tpl:ClassificationOfIndividual .
+    ?classificationofindividual tpl:hasClassifier <http://data.posccaesar.org/rdl/RDS9629> .
+    ?classifiedidentificationofindividual tpl:hasIdentified ?this .
+    ?classifiedidentificationofindividual tpl:hasIdentificationType rdlfacade:RA279224C9180470BAE922CFCBA21A78F .
+    ?classifiedidentificationofindividual a tpl:ClassifiedIdentificationOfIndividual .
+    ?classifiedidentificationofindividual tpl:valIdentifier ?JobNumberOnDataSheet .
+    NOT EXISTS {
+        ?referencetoindividualondocument tpl:hasReferred ?this .
+        ?referencetoindividualondocument tpl:hasDocument ?classofinformationobject .
+        ?referencetoindividualondocument a tpl:ReferenceToIndividualOnDocument .
+        ?classificationofclassofindividual tpl:hasClassifier <http://data.posccaesar.org/rdl/RDS250334> .
+        ?classificationofclassofindividual tpl:hasClassified ?classofinformationobject .
+        ?classofinformationobject a dm:ClassOfInformationObject .
+        ?classificationofclassofindividual a tpl:ClassificationOfClassOfIndividual .
+    } .
+}""" ;
+    ] ;
+.
