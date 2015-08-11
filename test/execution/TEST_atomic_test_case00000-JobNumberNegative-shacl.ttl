@@ -1,0 +1,20 @@
+# baseURI: http://iso15926.fiatech.org/test/execution/TEST_atomic_test_case00000-JobNumberNegative-shacl
+# imports: http://iso15926.fiatech.org/edrc_usecase_1/atomic_test_case00000-JobNumberNegative
+# imports: http://iso15926.fiatech.org/test/constraints/shacl_job_number
+# imports: http://www.w3.org/ns/shacl
+
+@prefix TEST_atomic_test_case00000-JobNumberNegative-shacl: <http://iso15926.fiatech.org/test/execution/TEST_atomic_test_case00000-JobNumberNegative-shacl#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://iso15926.fiatech.org/test/execution/TEST_atomic_test_case00000-JobNumberNegative-shacl>
+  rdf:type owl:Ontology ;
+  rdf:type sh:Graph ;
+  owl:imports <http://iso15926.fiatech.org/edrc_usecase_1/atomic_test_case00000-JobNumberNegative> ;
+  owl:imports <http://iso15926.fiatech.org/test/constraints/shacl_job_number> ;
+  owl:versionInfo "Created with TopBraid Composer"^^xsd:string ;
+  sh:shapesGraph <http://www.w3.org/ns/shacl> ;
+.
